@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gold USA Pro - Daily Precious Metals & Financial Market Insights</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0f172a;
+            --accent: #d97706;
+            --accent-light: #fef3c7;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --bg-light: #f8fafc;
+            --border: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #fcfcfc;
+            color: var(--text-dark);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            background-color: var(--primary);
+            color: #94a3b8;
+            font-size: 12px;
+            padding: 9px 0;
+            border-bottom: 1px solid #1e293b;
+        }
+        .top-bar-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .live-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #10b981;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #10b981;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 10px #10b981;
+        }
+
+        /* Header Logo */
+        header {
+            background: #ffffff;
+            padding: 32px 0;
+            border-bottom: 1px solid var(--border);
+            text-align: center;
+        }
+        .logo-container {
+            text-decoration: none;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .logo-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 38px;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+        .logo-title span {
+            color: var(--accent);
+        }
+        .logo-subtitle {
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-top: 4px;
+            font-weight: 700;
+        }
+
+        /* Navigation */
+        nav {
+            background: #ffffff;
+            border-bottom: 2px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+        }
+        .nav-menu a {
+            text-decoration: none;
+            color: #334155;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+            padding: 20px 0;
+            display: block;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+        .nav-menu a:hover, .nav-menu a.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+        .search-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 15px;
+            cursor: pointer;
+            padding: 8px;
+            transition: color 0.2s;
+        }
+        .search-btn:hover { color: var(--accent); }
+
+        /* Main Wrapper */
+        .wrapper {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: flex;
+            gap: 48px;
+        }
+
+        .main-stream {
+            flex: 1;
+            max-width: 780px;
+        }
+
+        /* Live Price Ticker Box */
+        .gold-summary-box {
+            background: #fffbeb;
+            border: 1px solid #fef3c7;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(217, 119, 6, 0.05);
+        }
+        .summary-item { text-align: center; }
+        .summary-label {
+            font-size: 11px;
+            color: #78350f;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .summary-val {
+            font-size: 22px;
+            font-weight: 800;
+            color: #92400e;
+            margin-top: 2px;
+        }
+        .summary-change {
+            font-size: 12px;
+            color: #15803d;
+            font-weight: 700;
+        }
+
+        /* Post Card */
+        .article-card {
+            background: #ffffff;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 48px;
+            margin-bottom: 48px;
+        }
+
+        .img-wrapper {
+            width: 100%;
+            height: 420px;
+            overflow: hidden;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .img-wrapper img, .img-wrapper svg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        .article-card:hover .img-wrapper img, .article-card:hover .img-wrapper svg {
+            transform: scale(1.03);
+        }
+
+        .article-cat {
+            display: inline-block;
+            background-color: var(--accent-light);
+            color: #b45309;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            padding: 5px 14px;
+            border-radius: 4px;
+            letter-spacing: 0.8px;
+            margin-bottom: 14px;
+        }
+
+        .article-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1.35;
+            margin-bottom: 12px;
+            text-decoration: none;
+            display: block;
+            transition: color 0.2s ease;
+        }
+        .article-title:hover { color: var(--accent); }
+
+        .article-meta {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+        .article-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .article-snippet {
+            font-size: 15px;
+            color: #475569;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        /* Full Article Accordion Text */
+        .full-article-text {
+            display: none;
+            font-size: 15px;
+            color: #334155;
+            line-height: 1.8;
+            background: var(--bg-light);
+            padding: 28px;
+            border-left: 4px solid var(--accent);
+            margin-bottom: 24px;
+            border-radius: 0 8px 8px 0;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+        }
+        .full-article-text h4 {
+            font-size: 18px;
+            color: var(--primary);
+            margin: 16px 0 8px 0;
+        }
+        .full-article-text p { margin-bottom: 14px; }
+
+        .read-more-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--primary);
+            background: transparent;
+            border: 1px solid #cbd5e1;
+            padding: 12px 26px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .read-more-btn:hover {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            color: #ffffff;
+        }
+
+        /* Live Rates Table */
+        .rates-table-card {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 48px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+        }
+        .table-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+        .gold-data-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+        .gold-data-table th, .gold-data-table td {
+            padding: 16px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 14px;
+        }
+        .gold-data-table th {
+            background-color: var(--bg-light);
+            color: var(--text-muted);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 0.6px;
+        }
+
+        /* Pagination */
+        .pagination-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 24px;
+            margin-bottom: 40px;
+            border-top: 2px solid #f1f5f9;
+        }
+        .page-link {
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--primary);
+            text-decoration: none;
+            padding: 12px 24px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+        .page-link:hover {
+            background-color: var(--accent);
+            border-color: var(--accent);
+            color: #ffffff;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 320px;
+            flex-shrink: 0;
+            position: sticky;
+            top: 90px;
+            height: fit-content;
+        }
+
+        .widget-box {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 36px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+
+        .widget-header {
+            background-color: var(--primary);
+            color: #ffffff;
+            text-align: center;
+            padding: 12px;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            border-radius: 6px;
+        }
+
+        .side-post {
+            display: flex;
+            gap: 14px;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+        .side-post:last-child { margin-bottom: 0; }
+        .side-img {
+            width: 80px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 6px;
+            flex-shrink: 0;
+            background-color: var(--bg-light);
+        }
+        .side-info { flex: 1; }
+        .side-date {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+        .side-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #1e293b;
+            text-decoration: none;
+            line-height: 1.4;
+            display: block;
+        }
+        .side-title:hover { color: var(--accent); }
+
+        @media (max-width: 900px) {
+            .wrapper { flex-direction: column; }
+            .sidebar { width: 100%; position: static; }
+            .nav-menu { display: none; }
+            .img-wrapper { height: 260px; }
+            .gold-summary-box { flex-wrap: wrap; gap: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Notification Ribbon -->
+    <div class="top-bar">
+        <div class="top-bar-inner">
+            <div class="live-indicator">
+                <span class="live-dot"></span> LIVE GOLD USA MARKET TICKER
+            </div>
+            <div>Spot Gold (XAU/USD): <strong>$2,734.20</strong> (+0.42%)</div>
+        </div>
+    </div>
+
+    <!-- Header Logo -->
+    <header>
+        <a href="#top" class="logo-container">
+            <h1 class="logo-title">GOLD USA <span>PRO</span></h1>
+            <span class="logo-subtitle">United States Gold Rate & Bullion Authority</span>
+        </a>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav id="top">
+        <div class="nav-container">
+            <ul class="nav-menu">
+                <li><a href="#rates" class="active">Live Rates</a></li>
+                <li><a href="#art-1">24K Gold Price</a></li>
+                <li><a href="#art-3">22K Jewelry</a></li>
+                <li><a href="#art-4">Silver Spot</a></li>
+                <li><a href="#art-5">Market Forecasts</a></li>
+                <li><a href="#art-2">Investment Guides</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="wrapper">
+        
+        <main class="main-stream">
+
+            <!-- Summary Ticker Card -->
+            <div id="rates" class="gold-summary-box">
+                <div class="summary-item">
+                    <div class="summary-label">24K Per Ounce</div>
+                    <div class="summary-val">$2,734.20</div>
+                    <div class="summary-change">+11.50 (▲)</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-label">24K Per Tola</div>
+                    <div class="summary-val">$1,025.40</div>
+                    <div class="summary-change">+4.20 (▲)</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-label">22K Per Gram</div>
+                    <div class="summary-val">$80.60</div>
+                    <div class="summary-change">+0.35 (▲)</div>
+                </div>
+            </div>
+
+            <!-- Article 1 -->
+            <article id="art-1" class="article-card">
+                <div class="img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=1200&q=80" alt="Gold Bullion Bars">
+                </div>
+                <span class="article-cat">24K Gold Price</span>
+                <a href="javascript:void(0)" class="article-title" onclick="toggleReport(1)">Global Gold Price Surges Near All-Time Highs Amid US Fed Rate Expectations</a>
+                <div class="article-meta">
+                    <span><i class="fa-regular fa-calendar"></i> October 18, 2026</span>
+                    <span><i class="fa-regular fa-user"></i> Senior Market Analyst</span>
+                </div>
+                <p class="article-snippet">Spot gold prices demonstrated strong bullish momentum across US bullion exchanges today. Increased institutional hedging and ongoing economic uncertainty have significantly driven retail demand for 24K bullion bars and investment-grade coins...</p>
+                
+                <div id="full-report-1" class="full-article-text">
+                    <h4>Institutional Capital Inflows</h4>
+                    <p>In-depth market breakdown shows that central banks and major institutional funds across North America and Europe continue to expand gold reserves. Institutional buyers are treating physical 24K gold as a primary hedge against inflation and Treasury bond yield volatility.</p>
+                    <h4>Technical & Fundamental Analysis</h4>
+                    <p>Technical indicators reveal a strong support base established around $2,710 per ounce. If market volume continues at its current pace, gold analysts forecast potential test thresholds reaching new record highs before the close of Q4 2026.</p>
+                    <p>For retail investors purchasing physical bars, maintaining low dealer premiums and verifying official serial minting stamps remains crucial when accumulating physical metal.</p>
+                </div>
+
+                <button class="read-more-btn" onclick="toggleReport(1)" id="btn-1">Read Full Report <i class="fa-solid fa-arrow-down"></i></button>
+            </article>
+
+            <!-- Live Rates Table -->
+            <div class="rates-table-card">
+                <h3 class="table-title">US Live Precious Metal Price Index</h3>
+                <table class="gold-data-table">
+                    <thead>
+                        <tr>
+                            <th>Purity / Weight</th>
+                            <th>Current Rate (USD)</th>
+                            <th>Daily Change</th>
+                            <th>24h High</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>24K Gold (1 Ounce)</strong></td>
+                            <td>$2,734.20</td>
+                            <td style="color: #15803d; font-weight:700;">+$11.50</td>
+                            <td>$2,740.00</td>
+                        </tr>
+                        <tr>
+                            <td><strong>24K Gold (10 Grams)</strong></td>
+                            <td>$879.10</td>
+                            <td style="color: #15803d; font-weight:700;">+$3.70</td>
+                            <td>$881.50</td>
+                        </tr>
+                        <tr>
+                            <td><strong>22K Gold (1 Gram)</strong></td>
+                            <td>$80.60</td>
+                            <td style="color: #15803d; font-weight:700;">+$0.35</td>
+                            <td>$81.00</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pure Silver (1 Ounce)</strong></td>
+                            <td>$33.85</td>
+                            <td style="color: #15803d; font-weight:700;">+$0.22</td>
+                            <td>$34.10</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Article 2 -->
+            <article id="art-2" class="article-card">
+                <div class="img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1589758438368-0ad531db3366?auto=format&fit=crop&w=1200&q=80" alt="Gold Coins Investment">
+                </div>
+                <span class="article-cat">Investment Guides</span>
+                <a href="javascript:void(0)" class="article-title" onclick="toggleReport(2)">Physical Gold vs. Gold ETFs: Allocating Precious Metals in a Modern Portfolio</a>
+                <div class="article-meta">
+                    <span><i class="fa-regular fa-calendar"></i> October 17, 2026</span>
+                    <span><i class="fa-regular fa-user"></i> Wealth Strategy Desk</span>
+                </div>
+                <p class="article-snippet">Choosing between physical gold coins, vaulted bars, and exchange-traded gold funds requires evaluating liquidity, counterparty risks, and annual storage maintenance fees...</p>
+
+                <div id="full-report-2" class="full-article-text">
+                    <h4>Evaluating Liquidity vs. Direct Ownership</h4>
+                    <p>While digital gold and ETFs offer instant brokerage liquidity and zero physical storage hassle, owning actual physical bullion eliminates counterparty financial institution risk completely.</p>
+                    <h4>Recommended Asset Allocation Strategy</h4>
+                    <p>Financial advisors suggest a hybrid 70/30 distribution strategy: 70% in physical allocated gold stored inside insured third-party depositories, and 30% in liquid exchange-traded commodities for active portfolio rebalancing during market downturns.</p>
+                </div>
+
+                <button class="read-more-btn" onclick="toggleReport(2)" id="btn-2">Read Full Report <i class="fa-solid fa-arrow-down"></i></button>
+            </article>
+
+            <!-- Article 3 -->
+            <article id="art-3" class="article-card">
+                <div class="img-wrapper">
+                    <svg viewBox="0 0 1200 600" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="goldBg" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#1e293b"/>
+                                <stop offset="50%" stop-color="#0f172a"/>
+                                <stop offset="100%" stop-color="#020617"/>
+                            </linearGradient>
+                            <linearGradient id="goldMetal" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#f59e0b"/>
+                                <stop offset="30%" stop-color="#fef3c7"/>
+                                <stop offset="70%" stop-color="#d97706"/>
+                                <stop offset="100%" stop-color="#b45309"/>
+                            </linearGradient>
+                        </defs>
+                        <rect width="1200" height="600" fill="url(#goldBg)"/>
+                        <circle cx="600" cy="300" r="180" fill="none" stroke="url(#goldMetal)" stroke-width="28"/>
+                        <circle cx="600" cy="300" r="140" fill="none" stroke="url(#goldMetal)" stroke-width="8" stroke-dasharray="15,10"/>
+                        <polygon points="600,160 630,220 700,220 645,260 665,320 600,280 535,320 555,260 500,220 570,220" fill="url(#goldMetal)"/>
+                        <text x="600" y="440" font-family="'Playfair Display', serif" font-size="32" font-weight="bold" fill="#fef3c7" text-anchor="middle" letter-spacing="3">22K GOLD JEWELRY MARKET</text>
+                        <text x="600" y="480" font-family="'Plus Jakarta Sans', sans-serif" font-size="16" fill="#94a3b8" text-anchor="middle" letter-spacing="2">US ORNAMENTATION & CRAFTSMANSHIP CHARGES</text>
+                    </svg>
+                </div>
+                <span class="article-cat">22K Jewelry</span>
+                <a href="javascript:void(0)" class="article-title" onclick="toggleReport(3)">Understanding 22K Jewelry Making Charges and Purity Deductions Before Buying</a>
+                <div class="article-meta">
+                    <span><i class="fa-regular fa-calendar"></i> October 16, 2026</span>
+                    <span><i class="fa-regular fa-user"></i> Jewelry Industry Desk</span>
+                </div>
+                <p class="article-snippet">Buying 22K gold ornament pieces involves factoring in wastage fees, hallmark certification costs, and artisan craftsmanship charges...</p>
+
+                <div id="full-report-3" class="full-article-text">
+                    <h4>Purity Standards & Hallmark Certifications</h4>
+                    <p>Always verify official hallmark purity stamps on 22K jewelry items. Making charges can range between 8% to 25% depending on design complexity and hand-finishing detail.</p>
+                    <h4>Calculating Resale Melt Value</h4>
+                    <p>When selling back 22K jewelry, jewelers calculate scrap value based strictly on pure 91.6% gold content. Knowing how wastage deductions apply protects buyers from excessive trade-in losses.</p>
+                </div>
+
+                <button class="read-more-btn" onclick="toggleReport(3)" id="btn-3">Read Full Report <i class="fa-solid fa-arrow-down"></i></button>
+            </article>
+
+            <!-- Article 4 -->
+            <article id="art-4" class="article-card">
+                <div class="img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1618042164219-62c820f10723?auto=format&fit=crop&w=1200&q=80" alt="Silver Bullion Bar">
+                </div>
+                <span class="article-cat">Silver Spot</span>
+                <a href="javascript:void(0)" class="article-title" onclick="toggleReport(4)">Silver Market Dynamics: Industrial Demand Drives Multi-Month Price Rallies</a>
+                <div class="article-meta">
+                    <span><i class="fa-regular fa-calendar"></i> October 15, 2026</span>
+                    <span><i class="fa-regular fa-user"></i> Commodity Research</span>
+                </div>
+                <p class="article-snippet">Solar photovoltaic manufacturing and electronic component production continue to compress global silver inventories. Explore why silver spot prices are exhibiting higher relative volatility...</p>
+
+                <div id="full-report-4" class="full-article-text">
+                    <h4>Green Energy Industrial Squeezes</h4>
+                    <p>The rapid expansion of solar panel manufacturing and EV battery electronics has led to consecutive annual silver supply deficits. Industrial fabrication now accounts for over 50% of total annual silver demand globally.</p>
+                    <h4>Gold-to-Silver Ratio Outlook</h4>
+                    <p>The historical Gold-to-Silver ratio currently sits at elevated levels, presenting potential value opportunities for precious metal investors seeking higher upside leverage compared to standard gold bullion.</p>
+                </div>
+
+                <button class="read-more-btn" onclick="toggleReport(4)" id="btn-4">Read Full Report <i class="fa-solid fa-arrow-down"></i></button>
+            </article>
+
+            <!-- Article 5 -->
+            <article id="art-5" class="article-card">
+                <div class="img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=1200&q=80" alt="Financial Currency and Gold">
+                </div>
+                <span class="article-cat">Market Forecasts</span>
+                <a href="javascript:void(0)" class="article-title" onclick="toggleReport(5)">Inflation Indexing and Currency Hedging: Why Central Banks Expand Gold Holdings</a>
+                <div class="article-meta">
+                    <span><i class="fa-regular fa-calendar"></i> October 14, 2026</span>
+                    <span><i class="fa-regular fa-user"></i> Macroeconomics Desk</span>
+                </div>
+                <p class="article-snippet">Sovereign financial institutions have consistently expanded their official gold holdings over the last five quarters. We examine how national reserves hedge against fiat devaluation...</p>
+
+                <div id="full-report-5" class="full-article-text">
+                    <h4>De-Dollarization Trends & Sovereign Reserves</h4>
+                    <p>Emerging market central banks are diversifying foreign exchange reserves away from single currency dependence. Physical gold offers neutral, non-sovereign counterparty asset security during geopolitical realignments.</p>
+                    <h4>Inflation Long-Term Purchasing Power</h4>
+                    <p>Over multi-decade horizons, gold consistently preserves purchasing power against fiat currency inflation, remaining the gold standard for institutional balance sheet stabilization.</p>
+                </div>
+
+                <button class="read-more-btn" onclick="toggleReport(5)" id="btn-5">Read Full Report <i class="fa-solid fa-arrow-down"></i></button>
+            </article>
+
+            <!-- Article 6 -->
+            <article id="art-6" class="article-card">
+                <div class="img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1605792657660-596af9009e82?auto=format&fit=crop&w=1200&q=80" alt="Gold Vault Safety">
+                </div>
+                <span class="article-cat">Investment Guides</span>
+                <a href="javascript:void(0)" class="article-title" onclick="toggleReport(6)">Top 5 Secure Vault Storage and Insurance Practices for High-Value Precious Metals</a>
+                <div class="article-meta">
+                    <span><i class="fa-regular fa-calendar"></i> October 12, 2026</span>
+                    <span><i class="fa-regular fa-user"></i> Asset Protection Team</span>
+                </div>
+                <p class="article-snippet">Storing physical gold bullion at home versus third-party segregated vault depositories involves distinct risk considerations. Review essential safety protocols and insurance policies...</p>
+
+                <div id="full-report-6" class="full-article-text">
+                    <h4>Home Safes vs. Allocated Vault Depository</h4>
+                    <p>Home storage offers immediate personal access but introduces burglary and property insurance limitations. Allocated vault storage provides UL-rated Class 3 safe security with full Lloyd's of London underwriting coverage.</p>
+                    <h4>Audit & Chain of Custody Standards</h4>
+                    <p>Always ensure your vaulting provider issues serialized bar ownership certificates and undergoes independent quarterly third-party audits to guarantee 100% physical metal allocation.</p>
+                </div>
+
+                <button class="read-more-btn" onclick="toggleReport(6)" id="btn-6">Read Full Report <i class="fa-solid fa-arrow-down"></i></button>
+            </article>
+
+            <!-- Pagination -->
+            <div class="pagination-container">
+                <a href="#" class="page-link"><i class="fa-solid fa-chevron-left"></i> Previous Rates</a>
+                <a href="#" class="page-link">Older Articles <i class="fa-solid fa-chevron-right"></i></a>
+            </div>
+
+        </main>
+
+        <!-- Right Sidebar (5 Complete Trending Articles) -->
+        <aside class="sidebar">
+            
+            <div class="widget-box">
+                <div class="widget-header">Top Trending Articles</div>
+                
+                <div class="side-post">
+                    <img src="https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=160&q=80" class="side-img" alt="Gold Bar">
+                    <div class="side-info">
+                        <div class="side-date">Oct 18, 2026</div>
+                        <a href="#art-1" class="side-title">24K Gold Rate Today per Gram & Ounce Breakdown</a>
+                    </div>
+                </div>
+
+                <div class="side-post">
+                    <img src="https://images.unsplash.com/photo-1618042164219-62c820f10723?auto=format&fit=crop&w=160&q=80" class="side-img" alt="Silver">
+                    <div class="side-info">
+                        <div class="side-date">Oct 18, 2026</div>
+                        <a href="#art-4" class="side-title">Silver Spot Prices Jump Along Gold Market Rally</a>
+                    </div>
+                </div>
+
+                <div class="side-post">
+                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='120' viewBox='0 0 160 120'><rect width='100%' height='100%' fill='%230f172a'/><circle cx='80' cy='60' r='35' fill='none' stroke='%23f59e0b' stroke-width='6'/><polygon points='80,35 88,52 105,52 91,63 96,80 80,70 64,80 69,63 55,52 72,52' fill='%23fef3c7'/></svg>" class="side-img" alt="Jewelry">
+                    <div class="side-info">
+                        <div class="side-date">Oct 17, 2026</div>
+                        <a href="#art-3" class="side-title">Understanding Making Charges on 22K Jewelry Rates</a>
+                    </div>
+                </div>
+
+                <div class="side-post">
+                    <img src="https://images.unsplash.com/photo-1589758438368-0ad531db3366?auto=format&fit=crop&w=160&q=80" class="side-img" alt="Coins">
+                    <div class="side-info">
+                        <div class="side-date">Oct 16, 2026</div>
+                        <a href="#art-2" class="side-title">Physical Gold vs Gold ETFs Allocation Guide</a>
+                    </div>
+                </div>
+
+                <div class="side-post">
+                    <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=160&q=80" class="side-img" alt="Currency">
+                    <div class="side-info">
+                        <div class="side-date">Oct 14, 2026</div>
+                        <a href="#art-5" class="side-title">Central Bank Gold Reserve Hedging Trends</a>
+                    </div>
+                </div>
+
+            </div>
+
+        </aside>
+
+    </div>
+
+    <script>
+        function toggleReport(id) {
+            const report = document.getElementById(`full-report-${id}`);
+            const btn = document.getElementById(`btn-${id}`);
+            
+            if (report.style.display === "block") {
+                report.style.display = "none";
+                btn.innerHTML = 'Read Full Report <i class="fa-solid fa-arrow-down"></i>';
+            } else {
+                report.style.display = "block";
+                btn.innerHTML = 'Close Full Report <i class="fa-solid fa-arrow-up"></i>';
+            }
+        }
+    </script>
+
+</body>
+</html>
